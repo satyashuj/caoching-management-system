@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Contact</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+header{
+background:#2c7be5;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+nav{
+background:#333;
+padding:12px;
+text-align:center;
+}
+
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.contact-container{
+display:flex;
+justify-content:center;
+gap:60px;
+padding:50px;
+}
+
+.contact-form{
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.contact-form input,
+.contact-form textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ccc;
+}
+
+button{
+background:#28a745;
+color:white;
+padding:10px 20px;
+border:none;
+cursor:pointer;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Khushi Coaching Classes</h1>
+<p>Best Coaching for Class 1 to 8</p>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="courses.html">Courses</a>
+<a href="admission.html">Admission</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+<div class="contact-container">
+
+<div>
+
+<h2>Contact</h2>
+
+<p><i class="fa-solid fa-user"></i> <b>Name:</b> Khushi</p>
+
+<p><i class="fa-solid fa-phone"></i> <b>Phone:</b> 7347651187 , 9129151187</p>
+
+<p><i class="fa-solid fa-location-dot"></i>
+<b>Address:</b> 155/3 Near Durga Park Gopal Diary Shastri Nagar Kanpur</p>
+
+</div>
+
+<div class="contact-form">
+
+<h2>Send Message</h2>
+
+<form id="contactForm">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="email" name="email" placeholder="Email" required>
+
+<input type="text" name="phone" placeholder="Phone Number" required>
+
+<textarea name="message" placeholder="Message" rows="4"></textarea>
+
+<button type="submit" id="btn">Submit</button>
+
+<p id="msg"></p>
+
+</form>
+
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 Khushi Coaching Classes</p>
+</footer>
+
+<script>
+
+(function(){
+emailjs.init("C0XgzTh8sivaWP-WG");
+})();
+
+document.getElementById("contactForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let btn=document.getElementById("btn");
+
+btn.innerHTML="Sending...";
+
+emailjs.sendForm("service_a80cusb","template_koixlel",this)
+
+.then(function(){
+
+document.getElementById("msg").innerHTML="Message Sent Successfully";
+
+btn.innerHTML="Submit";
+
+/* FORM CLEAR */
+
+document.getElementById("contactForm").reset();
+
+})
+
+.catch(function(){
+
+document.getElementById("msg").innerHTML="Error sending message";
+
+btn.innerHTML="Submit";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

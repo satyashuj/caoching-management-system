@@ -1,0 +1,144 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Login</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+/* Background Image */
+
+background:url("coaching.jpg");
+background-size:cover;
+background-position:center;
+}
+
+/* Glass Effect */
+
+.login-box{
+
+width:320px;
+padding:35px;
+
+background:rgba(255,255,255,0.2);
+
+backdrop-filter:blur(10px);
+
+border-radius:10px;
+
+box-shadow:0 8px 32px rgba(0,0,0,0.3);
+
+text-align:center;
+
+color:white;
+}
+
+.login-box h2{
+margin-bottom:20px;
+}
+
+input{
+
+width:90%;
+padding:12px;
+margin:10px;
+
+border:none;
+outline:none;
+
+border-radius:6px;
+
+background:rgba(255,255,255,0.9);
+}
+
+/* Buttons */
+
+
+
+button{
+
+padding:10px 20px;
+border:none;
+cursor:pointer;
+border-radius:6px;
+font-weight:bold;
+}
+
+button:first-of-type{
+background:#28a745;
+color:white;
+}
+
+.home-btn{
+background:#ff9800;
+color:white;
+}
+
+.home-btn{
+background:#2c7be5;
+}
+
+#msg{
+margin-top:10px;
+color:#ffdddd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>Admin Login</h2>
+
+<input type="text" id="adminId" placeholder="Admin ID">
+
+<input type="password" id="adminPass" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<button class="home-btn" onclick="goHome()">Back to Home</button>
+
+<p id="msg"></p>
+
+</div>
+
+<script>
+
+function login(){
+
+let id=document.getElementById("adminId").value;
+let pass=document.getElementById("adminPass").value;
+
+if(id=="admin" && pass=="1234"){
+
+window.location="admin-dashboard.html";
+
+}
+else{
+
+document.getElementById("msg").innerHTML="Wrong Admin ID or Password";
+
+}
+
+}
+
+function goHome(){
+window.location="index.html";
+}
+
+</script>
+
+</body>
+</html>
+```

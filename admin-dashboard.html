@@ -1,0 +1,323 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Admin Dashboard</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f0f4ff;
+}
+
+header{
+background:linear-gradient(45deg,#2c7be5,#00c6ff);
+color:white;
+padding:20px;
+text-align:center;
+position:relative;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,0,0,0.1);
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.section{
+padding:30px;
+}
+
+input{
+padding:10px;
+margin:5px;
+}
+
+button{
+background:#28a745;
+color:white;
+border:none;
+padding:10px 20px;
+cursor:pointer;
+margin:5px;
+}
+
+.logout{
+position:absolute;
+right:20px;
+top:20px;
+background:red;
+color:white;
+border:none;
+padding:8px 15px;
+cursor:pointer;
+border-radius:5px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+margin-top:20px;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+text-align:center;
+}
+
+.hidden{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Khushi Coaching Admin Dashboard</h1>
+<button class="logout" onclick="logout()">Logout</button>
+</header>
+
+<div class="dashboard">
+
+<div class="card" onclick="showSection('students')">
+<h3>Students</h3>
+<p>Student List</p>
+</div>
+
+<div class="card" onclick="showSection('fees')">
+<h3>Fees</h3>
+<p>Fees Tracker</p>
+</div>
+
+<div class="card" onclick="showSection('attendance')">
+<h3>Attendance</h3>
+<p>Attendance System</p>
+</div>
+
+<div class="card" onclick="showSection('results')">
+<h3>Results</h3>
+<p>Upload Result PDF</p>
+</div>
+
+</div>
+
+<!-- ADD STUDENT -->
+
+<div class="section">
+
+<h2>Add Student</h2>
+
+<input id="id" placeholder="Student ID">
+<input id="name" placeholder="Name">
+<input id="class" placeholder="Class">
+<input id="phone" placeholder="Phone">
+<input id="email" placeholder="Email">
+
+<button onclick="insert()">Insert</button>
+<button onclick="removeStudent()">Delete</button>
+
+</div>
+
+<!-- STUDENT LIST -->
+
+<div class="section" id="students">
+
+<h2>Student List</h2>
+
+<input id="search" placeholder="Search Student" onkeyup="searchStudent()">
+
+<table id="table">
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Class</th>
+<th>Phone</th>
+<th>Email</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+<!-- FEES -->
+
+<div class="section hidden" id="fees">
+
+<h2>Fees Tracker</h2>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Class</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Rahul</td>
+<td>5</td>
+<td style="color:green">Paid</td>
+</tr>
+
+<tr>
+<td>Aman</td>
+<td>6</td>
+<td style="color:red">Pending</td>
+</tr>
+
+</table>
+
+</div>
+
+<!-- ATTENDANCE -->
+
+<div class="section hidden" id="attendance">
+
+<h2>Attendance</h2>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Rahul</td>
+<td>
+<select>
+<option>Present</option>
+<option>Absent</option>
+</select>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+<!-- RESULTS -->
+
+<div class="section hidden" id="results">
+
+<h2>Upload Result</h2>
+
+<input type="file">
+<button>Upload</button>
+
+</div>
+
+<script>
+
+function showSection(section){
+
+document.getElementById("students").classList.add("hidden");
+document.getElementById("fees").classList.add("hidden");
+document.getElementById("attendance").classList.add("hidden");
+document.getElementById("results").classList.add("hidden");
+
+document.getElementById(section).classList.remove("hidden");
+
+}
+
+function insert(){
+
+let id=document.getElementById("id").value;
+let name=document.getElementById("name").value;
+let cls=document.getElementById("class").value;
+let phone=document.getElementById("phone").value;
+let email=document.getElementById("email").value;
+
+let table=document.querySelector("#table tbody");
+
+let row=document.createElement("tr");
+
+row.innerHTML=`
+<td>${id}</td>
+<td>${name}</td>
+<td>${cls}</td>
+<td>${phone}</td>
+<td>${email}</td>
+`;
+
+table.appendChild(row);
+
+clearForm();
+
+}
+
+function removeStudent(){
+
+let id=document.getElementById("id").value;
+
+let rows=document.querySelectorAll("#table tbody tr");
+
+rows.forEach(row=>{
+if(row.cells[0].innerText===id){
+row.remove();
+}
+});
+
+clearForm();
+
+}
+
+function searchStudent(){
+
+let input=document.getElementById("search").value.toLowerCase();
+let rows=document.querySelectorAll("#table tbody tr");
+
+rows.forEach(row=>{
+let name=row.cells[1].innerText.toLowerCase();
+row.style.display=name.includes(input)?"":"none";
+});
+
+}
+
+function logout(){
+window.location="admin-login.html";
+}
+
+function clearForm(){
+
+document.getElementById("id").value="";
+document.getElementById("name").value="";
+document.getElementById("class").value="";
+document.getElementById("phone").value="";
+document.getElementById("email").value="";
+
+}
+
+</script>
+
+</body>
+</html>
+```

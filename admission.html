@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admission</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+header{
+background:#2c7be5;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+nav{
+background:#333;
+padding:12px;
+text-align:center;
+}
+
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.container{
+display:flex;
+justify-content:center;
+gap:40px;
+padding:40px;
+}
+
+.formBox{
+background:white;
+padding:25px;
+width:320px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input,textarea{
+display:block;
+margin:10px auto;
+padding:10px;
+width:90%;
+}
+
+button{
+background:#28a745;
+color:white;
+padding:10px 20px;
+border:none;
+cursor:pointer;
+}
+
+.cardBox{
+background:white;
+padding:25px;
+width:260px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+#idCard{
+border:2px solid #2c7be5;
+padding:15px;
+display:none;
+}
+
+#idCard img{
+width:100px;
+height:100px;
+object-fit:cover;
+border-radius:5px;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Khushi Coaching Classes</h1>
+<p>Best Coaching for Class 1 to 8</p>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="courses.html">Courses</a>
+<a href="admission.html">Admission</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+
+<div class="formBox">
+
+<h2>Admission Form</h2>
+
+<form id="admissionForm">
+
+<input type="text" name="name" placeholder="Student Name" required>
+
+<input type="text" name="class" placeholder="Class" required>
+
+<input type="text" name="phone" placeholder="Parent Phone" required>
+
+<input type="email" name="email" placeholder="Parent Email" required>
+
+<input type="file" id="photo" accept="image/*" required>
+
+<textarea name="message" placeholder="Additional Message"></textarea>
+
+<button type="submit">Submit</button>
+
+<p id="msg"></p>
+
+</form>
+
+</div>
+
+
+<div class="cardBox">
+
+<h2>ID Card</h2>
+
+<div id="idCard">
+
+<img id="cardPhoto">
+
+<h3 id="cardName"></h3>
+
+<p id="cardClass"></p>
+
+<p id="cardId"></p>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 Khushi Coaching Classes</p>
+</footer>
+
+<script>
+
+/* EmailJS */
+
+(function(){
+emailjs.init("C0XgzTh8sivaWP-WG");
+})();
+
+/* PHOTO LOAD */
+
+let photoData="";
+
+document.getElementById("photo").addEventListener("change",function(){
+
+let file=this.files[0];
+
+let reader=new FileReader();
+
+reader.onload=function(e){
+photoData=e.target.result;
+}
+
+reader.readAsDataURL(file);
+
+});
+
+
+document.getElementById("admissionForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+/* FORM DATA */
+
+let name=document.querySelector('input[name="name"]').value;
+let cls=document.querySelector('input[name="class"]').value;
+let phone=document.querySelector('input[name="phone"]').value;
+let email=document.querySelector('input[name="email"]').value;
+let message=document.querySelector('textarea[name="message"]').value;
+
+/* STUDENT ID */
+
+let studentId="KC"+Math.floor(Math.random()*10000);
+
+/* ID CARD SHOW */
+
+document.getElementById("cardPhoto").src=photoData;
+document.getElementById("cardName").innerHTML=name;
+document.getElementById("cardClass").innerHTML="Class : "+cls;
+document.getElementById("cardId").innerHTML="Student ID : "+studentId;
+
+document.getElementById("idCard").style.display="block";
+
+/* EMAIL */
+
+emailjs.sendForm(
+"service_a80cusb",
+"template_koixlel",
+this
+);
+
+/* GOOGLE SHEET */
+
+let data={
+name:name,
+class:cls,
+phone:phone,
+email:email,
+message:message,
+id:studentId
+};
+
+fetch("https://script.google.com/macros/s/AKfycbz7dq1TmZC4jnGFlwQmnLsJQJR5TnjX-yWs7sW3XmSC2RNcA_bRmX-IYvqwsSgGj5nW/exec",{
+method:"POST",
+body:JSON.stringify(data)
+});
+
+/* SMS */
+
+fetch("https://www.fast2sms.com/dev/bulkV2",{
+method:"POST",
+headers:{
+"authorization":"DCrxiXE7SgqZdKH8LoYjNpGJntfcOAP61uTMa50eQzhVbmk4ylpdB6qUbak7noTifj9XesF2NwcK0yVt",
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+route:"q",
+message:"New Admission: "+name+" Class:"+cls,
+numbers:"7347651187"
+})
+});
+
+/* FORM CLEAR */
+
+document.getElementById("admissionForm").reset();
+
+});
+
+</script>
+
+</body>
+</html>
