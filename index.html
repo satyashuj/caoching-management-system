@@ -149,7 +149,161 @@ color:white;
 border:none;
 padding:10px 20px;
 cursor:pointer;
+} 
+/* GALLERY */
+.gallery{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
 }
+
+/* IMAGES */
+.gallery img{
+    width: 300px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: 0.4s ease;
+
+    /* GLOW */
+    box-shadow:
+        0 0 10px rgba(0,140,255,0.4),
+        0 0 20px rgba(0,140,255,0.3);
+}
+
+/* HOVER EFFECT */
+.gallery img:hover{
+    transform: scale(1.06) translateY(-8px);
+
+    box-shadow:
+        0 0 15px #00c3ff,
+        0 0 30px #00c3ff,
+        0 0 45px rgba(0,195,255,0.8);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.gallery img{
+    width: 90%;
+    height: auto;
+}
+
+/* MAIN CONTAINER */
+.container,
+.features{
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* HEADINGS */
+.container h2,
+.features h2{
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #1e293b;
+    position: relative;
+}
+
+/* CARD LAYOUT */
+.cards{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+/* CARD DESIGN */
+.card{
+    background: linear-gradient(135deg,#2563eb,#1e40af);
+    color: white;
+    width: 280px;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(37,99,235,0.3);
+    transition: 0.3s ease;
+}
+
+/* CARD HOVER */
+.card:hover{
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(37,99,235,0.5);
+}
+
+/* CARD TITLE */
+.card h3{
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+/* CARD TEXT */
+.card p{
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* TABLE */
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+/* TABLE HEADER */
+table th{
+    background: #2563eb;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+}
+
+/* TABLE DATA */
+table td{
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+/* ROW HOVER */
+table tr:hover{
+    background: #f1f5f9;
+    transition: 0.3s;
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:768px){
+
+.cards{
+    flex-direction: column;
+    align-items: center;
+}
+
+.card{
+    width: 90%;
+}
+
+.container h2,
+.features h2{
+    font-size: 26px;
+}
+
+table th,
+table td{
+    font-size: 14px;
+    padding: 10px;
+}
+
 
 /* WhatsApp button */
 
